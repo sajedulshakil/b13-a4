@@ -19,6 +19,7 @@ const emptyState = document.getElementById('empty-state')
 function switchTab(tab){
     console.log(tab)
     const tabs = ["all", "interview", "rejected"]
+     currentTab = tab;
 
     for(const t of tabs){
         const tabName = document.getElementById("tab-" + t);
@@ -63,6 +64,8 @@ emptyState.classList.add('hidden')
             emptyState.classList.remove('hidden')
         }
     }
+
+    updateStat ()
 }
 
 
@@ -71,6 +74,9 @@ emptyState.classList.add('hidden')
 const totalStat = document.getElementById('stat-total')
 const interviewStat = document.getElementById('stat-interview')
 const rejectStat = document.getElementById('stat-reject')
+
+const availableStat = document.getElementById('available')
+
 
 totalStat.innerText = allContainer.children.length
 
@@ -118,9 +124,19 @@ function updateStat (){
         rejected: rejectContainer.children.length,
     }
 
-     totalStat.innerText = counts["all"]
-     interviewStat.innerText = counts["interview"]
-     rejectStat.innerText = counts["rejected"]
+     totalStat.innerText = counts.all
+     interviewStat.innerText = counts.interview
+     rejectStat.innerText = counts.rejected
+
+     availableStat.innerText = counts[currentTab]
+
+     if(counts[currentTab] < 1){
+           emptyState.classList.remove('hidden')
+     }
+
+     else{
+        emptyState.classList.add('hidden')
+     }
 
 }
 
